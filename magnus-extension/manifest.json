@@ -20,6 +20,12 @@
         "run_at": "document_idle"
       }
     ],
+    "web_accessible_resources": [
+      {
+        "resources": ["sidebar.html", "sidebar.js", "sidebar.css"],
+        "matches": ["https://twitter.com/*", "https://x.com/*"]
+      }
+    ],
     "action": {
       "default_title": "Magnus"
     }
