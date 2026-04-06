@@ -2,7 +2,8 @@ let sidebarInjected = false;
 
 function injectSidebar() {
   if (sidebarInjected) return;
-  if (!window.location.href.includes('/messages')) return;
+  if (!window.location.href.includes('/i/chat') && 
+      !window.location.href.includes('/messages')) return;
 
   sidebarInjected = true;
 
@@ -35,7 +36,8 @@ function nudgeLayout() {
 }
 
 const observer = new MutationObserver(() => {
-  if (window.location.href.includes('/messages')) {
+  if (window.location.href.includes('/i/chat') || 
+      window.location.href.includes('/messages')) {
     injectSidebar();
   } else {
     const existing = document.getElementById('magnus-sidebar');
