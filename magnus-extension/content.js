@@ -48,6 +48,6 @@ const observer = new MutationObserver(() => {
   }
 });
 
+console.log('[Magnus] content script loaded, URL:', window.location.href);
 observer.observe(document.body, { childList: true, subtree: true });
-
 injectSidebar();
