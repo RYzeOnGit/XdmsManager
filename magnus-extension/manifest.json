@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Magnus",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Founder DM Command Center for X",
     "permissions": [
       "activeTab",
@@ -22,7 +22,7 @@
     ],
     "web_accessible_resources": [
       {
-        "resources": ["sidebar.html", "sidebar.js", "sidebar.css", "inject-hook.js"],
+        "resources": ["sidebar.html", "sidebar.js", "sidebar.css", "panel.css", "panel-loader.js", "inject-hook.js"],
         "matches": ["https://twitter.com/*", "https://x.com/*"]
       }
     ],

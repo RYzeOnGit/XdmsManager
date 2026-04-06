@@ -212,6 +212,7 @@ function injectSidebar() {
   iframe.id = 'magnus-sidebar'
   iframe.src = chrome.runtime.getURL('sidebar.html')
   iframe.setAttribute('title', 'Magnus')
+  iframe.setAttribute('referrerpolicy', 'no-referrer')
   iframe.style.cssText = [
     'position:fixed',
     'top:0',

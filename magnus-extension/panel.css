@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magnus Sidebar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
+/* Embedded iframe on x.com: keep paint stable vs host page */
 html { color-scheme: dark; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #0a0a0b; --bg2: #111114; --bg3: #18181d; --bg4: #1e1e25;
@@ -138,67 +131,3 @@ body { width: var(--width); min-height: 100vh; background: var(--bg); font-famil
 .demo-toggle input { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
 .demo-hint { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 0.04em; }
 [hidden] { display: none !important; }
-</style>
-</head>
-<body>
-<div class="sidebar">
-  <div class="analyzing-bar" id="analyzingBar">
-    <div class="analyzing-dots"><span></span><span></span><span></span></div>
-    <div class="analyzing-text">Scanning your inbox...</div>
-  </div>
-  <div class="header">
-    <div class="header-top">
-      <div class="logo">
-        <div class="logo-icon">⚡</div>
-        <div class="logo-text">Mag<span>nus</span></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <button type="button" class="collapse-btn" id="collapseBtn" title="Hide sidebar" aria-label="Collapse Magnus">⟨</button>
-        <div class="status-dot"></div>
-      </div>
-    </div>
-    <div class="health-bar-wrap">
-      <div class="health-row">
-        <div class="health-label">Inbox Health</div>
-        <div class="health-score" id="healthScore">—<span>/100</span></div>
-      </div>
-      <div class="health-track"><div class="health-fill" id="healthFill"></div></div>
-      <div class="health-reason" id="healthReason">Analyzing your DMs...</div>
-    </div>
-  </div>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('priority', this)">Priority <span class="tab-badge" id="priorityBadge">3</span></button>
-    <button class="tab" onclick="switchTab('stale', this)">Stale <span class="tab-badge" id="staleBadge" style="background:var(--muted2)">2</span></button>
-    <button class="tab" onclick="switchTab('all', this)">All</button>
-  </div>
-  <div class="error-banner" id="errorBanner" hidden>
-    <div class="error-banner-title">Backend unreachable</div>
-    <div class="error-banner-msg" id="errorBannerMsg">Could not reach the analyze API.</div>
-    <button type="button" class="error-retry" id="errorRetryBtn">Retry</button>
-  </div>
-  <div class="scroll-area" id="scrollArea">
-    <div class="loading-state" id="loadingState">
-      <div class="skeleton" style="height:80px">
-        <div class="skeleton-line long" style="margin-top:16px"></div>
-        <div class="skeleton-line medium"></div>
-        <div class="skeleton-line short"></div>
-      </div>
-      <div class="skeleton" style="height:72px">
-        <div class="skeleton-line medium" style="margin-top:16px"></div>
-        <div class="skeleton-line long"></div>
-        <div class="skeleton-line short"></div>
-      </div>
-      <div class="skeleton" style="height:68px">
-        <div class="skeleton-line long" style="margin-top:16px"></div>
-        <div class="skeleton-line short"></div>
-      </div>
-    </div>
-  </div>
-  <div class="sidebar-footer">
-    <label class="demo-toggle"><input type="checkbox" id="demoModeToggle" checked /> Demo mode</label>
-    <span class="demo-hint">Sample inbox</span>
-  </div>
-</div>
-<script src="sidebar.js"></script>
-</body>
-</html>

@@ -519,7 +519,7 @@ function postParent(msg) {
   if (window.parent !== window) window.parent.postMessage(msg, '*')
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initMagnusSidebar() {
   const toggle = document.getElementById('demoModeToggle')
   if (toggle) toggle.checked = demoMode
 
@@ -587,4 +587,10 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     showLiveWaitingShell()
   }
-})
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMagnusSidebar)
+} else {
+  initMagnusSidebar()
+}
