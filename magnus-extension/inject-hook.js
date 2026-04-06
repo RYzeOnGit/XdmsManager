@@ -1,8 +1,10 @@
 /**
- * Runs in the page main world (injected via <script src="chrome-extension://.../inject-hook.js">).
- * Hooks fetch + XHR so DM API JSON reaches the extension content script via postMessage.
+ * Runs in the page main world via manifest world:"MAIN" at document_start.
+ * Hooks fetch + XHR so DM API JSON reaches the content script via CustomEvent.
  */
 ;(function magnusInjectHook() {
+  if (window.__magnusHookInstalled) return
+  window.__magnusHookInstalled = true
   const TAG = 'magnus-hook'
 
   function emit(kind, url, data) {
@@ -16,9 +18,41 @@
     } catch (_) {}
   }
 
+  function isDmSurface() {
+    try {
+      const p = (window.location.pathname || '').toLowerCase()
+      return p.includes('/messages') || p.includes('/i/chat') || p.includes('/dm')
+    } catch (_) {
+      return false
+    }
+  }
+
+  /**
+   * X serves DMs via GraphQL under /i/api/graphql/<hash>/<OpName>. Op names change; some URLs are
+   * hash-only in practice. On DM routes, capture all GraphQL JSON so we never miss timelines.
+   */
   function maybeHandleUrl(url) {
     const u = String(url || '')
-    return u.includes('/dm/inbox') || u.includes('/dm/conversation') || u.includes('dm/inbox_timeline') || u.includes('dm/conversation')
+    const l = u.toLowerCase()
+    if (
+      l.includes('/dm/') ||
+      l.includes('dm/inbox') ||
+      l.includes('dm/conversation') ||
+      l.includes('inbox_timeline') ||
+      l.includes('conversation_timeline')
+    ) {
+      return true
+    }
+    if (l.includes('/i/api/') && (l.includes('/dm') || l.includes('dm_'))) {
+      return true
+    }
+    if (l.includes('/i/api/graphql/')) {
+      if (isDmSurface()) return true
+      return /dm|directmessage|conversation|inbox|message|chat|slice|timeline|notification|typing|entry/i.test(
+        u
+      )
+    }
+    return false
   }
 
   const origFetch = window.fetch

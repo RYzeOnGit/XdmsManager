@@ -1,9 +1,19 @@
 import { createOpenRouter } from '@openrouter/ai-sdk-provider'
 import { generateText } from 'ai'
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+}
+
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY!
 })
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: corsHeaders })
+}
 
 export async function POST(req: Request) {
   const { messages } = await req.json()
@@ -58,5 +68,5 @@ ${JSON.stringify(messages)}`
   const clean = text.replace(/```json|```/g, '').trim()
   const parsed = JSON.parse(clean)
 
-  return Response.json(parsed)
+  return Response.json(parsed, { headers: corsHeaders })
 }

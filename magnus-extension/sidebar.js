@@ -101,10 +101,110 @@ const DEMO_DATA = {
       },
       followUpSuggestion: null,
       confidence: 0.85
+    },
+    {
+      clusterTitle: 'Customer — checkout 500s in EU',
+      oneLiner: 'Paying customer blocked; thread getting heated',
+      intentType: 'customer',
+      senderType: 'unknown',
+      opportunityScore: 92,
+      opportunityReason: 'Revenue at risk + fast replies expected on status page',
+      urgency: 'high',
+      urgencyTrigger: 'No response in 45m after escalation',
+      actionType: 'reply_needed',
+      representativeMessages: [
+        'Hey — EU customers are seeing 500s on checkout. Can you confirm you’re on it?',
+        'This is blocking our launch. Need an ETA today.',
+        'Pinging again — still down on our side.'
+      ],
+      unreadCount: 3,
+      daysSinceLastReply: 0,
+      suggestedReply: {
+        warm:
+          "Hey — really sorry you're hitting this. We're digging in now and will post an ETA in the next hour. Can you share one failing request ID?",
+        professional:
+          "Thanks for the report. We're treating this as P0 — engineering is on it. Expect an update with root cause and ETA within 60 minutes.",
+        brief: 'On it — P0. Will reply with ETA in <1h. Send a request ID if you have one.'
+      },
+      followUpSuggestion: 'Post a short public status + DM them the link',
+      confidence: 0.92
+    },
+    {
+      clusterTitle: 'Fan — loved your thread on infra',
+      oneLiner: 'Organic praise, no ask — quick thank-you',
+      intentType: 'fan_message',
+      senderType: 'unknown',
+      opportunityScore: 35,
+      opportunityReason: 'Low lift relationship signal — nice to acknowledge',
+      urgency: 'low',
+      urgencyTrigger: null,
+      actionType: 'follow_up',
+      representativeMessages: [
+        'Your thread on infra costs literally saved our team a week. Thank you for writing it 🙏'
+      ],
+      unreadCount: 1,
+      daysSinceLastReply: null,
+      suggestedReply: {
+        warm: "Hey! That means a lot — glad it helped. Rooting for you and the team.",
+        professional: 'Thanks for the note — happy the thread was useful. Best of luck with the rollout.',
+        brief: 'Thanks! Stoked it helped 🙌'
+      },
+      followUpSuggestion: null,
+      confidence: 0.75
+    },
+    {
+      clusterTitle: 'Podcast — 20 min Thu?',
+      oneLiner: 'Credible show, clear audience fit, soft deadline',
+      intentType: 'collab_pitch',
+      senderType: 'unknown',
+      opportunityScore: 62,
+      opportunityReason: 'Named audience size + specific topic hook',
+      urgency: 'medium',
+      urgencyTrigger: 'Recording slot in 5 days',
+      actionType: 'reply_needed',
+      representativeMessages: [
+        "We're booking guests for next week — would love 20 min on how you think about AI tooling tradeoffs. No prep deck needed."
+      ],
+      unreadCount: 1,
+      daysSinceLastReply: 2,
+      suggestedReply: {
+        warm:
+          "Hey! Flattered you asked — could do 20 min. I'm a bit slammed Thu — does Fri AM work your time?",
+        professional:
+          'Thanks for the invite. I could do a 20-minute recorded segment — please share audience size and distribution. I have limited slots Fri AM PT.',
+        brief: 'Potentially — Fri AM better than Thu. Who’s the audience?'
+      },
+      followUpSuggestion: 'Ask for episode link + typical downloads before committing',
+      confidence: 0.7
+    },
+    {
+      clusterTitle: 'Crypto mint — obvious cold blast',
+      oneLiner: 'Mass DM, link-only, no personalization',
+      intentType: 'spam',
+      senderType: 'spam',
+      opportunityScore: 5,
+      opportunityReason: 'Template outreach — safe to ignore or one-line decline',
+      urgency: 'low',
+      urgencyTrigger: null,
+      actionType: 'safe_to_ignore',
+      representativeMessages: [
+        "Exclusive mint for founders — don't miss WL 👇 [link]",
+        'Bumping this — closing in 2h'
+      ],
+      unreadCount: 2,
+      daysSinceLastReply: null,
+      suggestedReply: {
+        warm: 'Thanks but not interested in mints / crypto promos. Best of luck.',
+        professional: 'Passing on this — not evaluating NFT or mint opportunities via DM.',
+        brief: 'Not interested — thanks.'
+      },
+      followUpSuggestion: null,
+      confidence: 0.95
     }
   ],
-  inboxHealthScore: 70,
-  inboxHealthReason: '2 hot leads need replies — investor and collab pitch going cold',
+  inboxHealthScore: 68,
+  inboxHealthReason:
+    'Five threads need attention — customer incident, two hot leads, podcast, plus fan + spam noise',
   staledThreads: [
     {
       name: 'Priya @ Stripe',
