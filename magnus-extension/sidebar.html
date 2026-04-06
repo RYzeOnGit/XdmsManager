@@ -23,7 +23,10 @@
   .header { padding: 16px 16px 12px; border-bottom: 1px solid var(--border); position: relative; z-index: 1; flex-shrink: 0; }
   .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
   .logo { display: flex; align-items: center; gap: 8px; }
-  .logo-icon { width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 0 16px rgba(124,106,255,0.4); }
+  .logo-icon { width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 0 16px rgba(124,106,255,0.45), 0 0 36px rgba(124,106,255,0.22); animation: logo-glow 3.2s ease-in-out infinite; }
+  @keyframes logo-glow { 0%, 100% { box-shadow: 0 0 16px rgba(124,106,255,0.45), 0 0 36px rgba(124,106,255,0.22); } 50% { box-shadow: 0 0 22px rgba(124,106,255,0.65), 0 0 48px rgba(124,106,255,0.35); } }
+  .collapse-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg3); color: var(--muted); font-size: 14px; line-height: 1; cursor: pointer; transition: all 0.15s ease; flex-shrink: 0; }
+  .collapse-btn:hover { color: var(--text); border-color: var(--border-bright); background: var(--bg4); }
   .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: -0.3px; color: var(--text); }
   .logo-text span { color: var(--accent2); }
   .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse-dot 2s ease-in-out infinite; }
@@ -47,9 +50,9 @@
   .section-label-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
   .section-label-text { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
   .section-label-line { flex: 1; height: 1px; background: var(--border); }
-  .cluster-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.2s ease; animation: card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .cluster-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.18s ease; animation: card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
   @keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .cluster-card:hover { border-color: var(--border-bright); background: var(--bg3); }
+  .cluster-card:hover { border-color: var(--border-bright); background: var(--bg3); box-shadow: 0 4px 20px rgba(0,0,0,0.35); transform: translateY(-1px); }
   .cluster-card.expanded { border-color: var(--border-bright); }
   .cluster-card.urgency-high { border-left: 2px solid var(--red); }
   .cluster-card.urgency-medium { border-left: 2px solid var(--amber); }
@@ -77,8 +80,8 @@
   .score-number.high { color: var(--red); }
   .score-number.medium { color: var(--amber); }
   .score-number.low { color: var(--muted); }
-  .card-body { display: none; padding: 0 12px 12px; border-top: 1px solid var(--border); }
-  .cluster-card.expanded .card-body { display: block; }
+  .card-body { max-height: 0; overflow: hidden; padding: 0 12px; opacity: 0; border-top: 1px solid transparent; transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, padding 0.35s ease, border-color 0.2s ease; }
+  .cluster-card.expanded .card-body { max-height: 1400px; opacity: 1; padding: 0 12px 12px; border-top-color: var(--border); }
   .card-body-inner { padding-top: 10px; }
   .messages-preview { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
   .message-bubble { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 9px; font-size: 11px; color: var(--muted); line-height: 1.4; font-style: italic; }
@@ -124,6 +127,16 @@
   .empty-icon { font-size: 28px; margin-bottom: 4px; }
   .empty-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 13px; color: var(--text); }
   .empty-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .error-banner { margin: 0 12px 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,77,109,0.35); background: var(--red-dim); flex-shrink: 0; }
+  .error-banner-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+  .error-banner-msg { font-size: 11px; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+  .error-retry { width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border-bright); background: var(--bg3); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .error-retry:hover { border-color: var(--accent); color: var(--accent2); }
+  .sidebar-footer { flex-shrink: 0; padding: 10px 14px 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.25)); }
+  .demo-toggle { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); cursor: pointer; user-select: none; font-family: 'DM Sans', sans-serif; }
+  .demo-toggle input { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
+  .demo-hint { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 0.04em; }
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -138,7 +151,10 @@
         <div class="logo-icon">⚡</div>
         <div class="logo-text">Mag<span>nus</span></div>
       </div>
-      <div class="status-dot"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button type="button" class="collapse-btn" id="collapseBtn" title="Hide sidebar (⌃M / ⌘M)" aria-label="Collapse Magnus">⟨</button>
+        <div class="status-dot"></div>
+      </div>
     </div>
     <div class="health-bar-wrap">
       <div class="health-row">
@@ -153,6 +169,11 @@
     <button class="tab active" onclick="switchTab('priority', this)">Priority <span class="tab-badge" id="priorityBadge">3</span></button>
     <button class="tab" onclick="switchTab('stale', this)">Stale <span class="tab-badge" id="staleBadge" style="background:var(--muted2)">2</span></button>
     <button class="tab" onclick="switchTab('all', this)">All</button>
+  </div>
+  <div class="error-banner" id="errorBanner" hidden>
+    <div class="error-banner-title">Backend unreachable</div>
+    <div class="error-banner-msg" id="errorBannerMsg">Could not reach the analyze API.</div>
+    <button type="button" class="error-retry" id="errorRetryBtn">Retry</button>
   </div>
   <div class="scroll-area" id="scrollArea">
     <div class="loading-state" id="loadingState">
@@ -172,6 +193,11 @@
       </div>
     </div>
   </div>
+  <div class="sidebar-footer">
+    <label class="demo-toggle"><input type="checkbox" id="demoModeToggle" checked /> Demo mode</label>
+    <span class="demo-hint">Sample inbox</span>
+  </div>
 </div>
+<script src="sidebar.js"></script>
 </body>
 </html>
